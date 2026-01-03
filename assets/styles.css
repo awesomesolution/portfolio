@@ -153,4 +153,18 @@ body{
   .primary-nav{display:none}
   .primary-nav.open{display:block;position:absolute;right:1rem;top:62px;background:#fff;padding:1rem;border-radius:8px;box-shadow:0 6px 20px rgba(2,6,23,0.08)}
   .header-inner{position:relative}
+  .hero{padding:2rem 0}
+  .section{padding:1.5rem 0}
+  .container{padding:1rem}
+}
+@media (max-width:480px){
+  .hero{padding:1.5rem 0}
+  .section{padding:1rem 0}
+  .container{padding:0.75rem}
+  .hero h1{font-size:1.75rem}
+  .hero .lead{font-size:1rem}
+  .btn{font-size:0.9rem;padding:0.75rem 1.5rem}
+  .project-card{padding:0.5rem}
+  .services-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
 }
