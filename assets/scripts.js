@@ -26,5 +26,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
     }
   });
-});</content>
-<parameter name="filePath">d:\development\portfolio\assets\scripts.js
+});
