@@ -31,8 +31,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Contact form submission
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
+  let isSubmitting = false;
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    if (isSubmitting) {
+      return; // Prevent multiple submissions
+    }
     
     // Check honeypot
     const honeypot = this.querySelector('input[name="_gotcha"]');
@@ -45,6 +50,7 @@ if (contactForm) {
     const submitButton = this.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     
+    isSubmitting = true;
     // Disable button and show loading
     submitButton.disabled = true;
     submitButton.textContent = 'Sending...';
@@ -64,7 +70,8 @@ if (contactForm) {
         setTimeout(() => {
           submitButton.disabled = false;
           submitButton.textContent = originalText;
-        }, 3000);
+          isSubmitting = false;
+        }, 5000); // Longer cooldown on success
       } else {
         throw new Error('Form submission failed');
       }
@@ -75,6 +82,7 @@ if (contactForm) {
       setTimeout(() => {
         submitButton.disabled = false;
         submitButton.textContent = originalText;
+        isSubmitting = false;
       }, 3000);
     });
   });
