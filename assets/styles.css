@@ -334,20 +334,6 @@ body{
     align-items:center;
     justify-content:center;
   }
-  .primary-nav.open::before{
-    content:'';
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    background:#fff;
-    padding:2rem;
-    border-radius:12px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.15);
-    min-width:280px;
-    max-width:90vw;
-    min-height:200px;
-  }
   .primary-nav::after{
     content:'✕';
     position:absolute;
