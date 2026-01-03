@@ -154,15 +154,19 @@
         <input id="email" name="email" type="email" required />
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="5" required></textarea>
+        <!-- Honeypot field for spam prevention -->
+        <div style="display:none;">
+          <label for="website">Website (leave blank)</label>
+          <input id="website" name="_gotcha" type="text" />
+        </div>
         <button class="btn primary" type="submit">Send</button>
-        <p class="muted small">Form submissions are handled securely via Formspree. Replace YOUR_FORM_ID with your actual Formspree form ID.</p>
       </form>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> Hitesh — Professional Website and Application Developer</p>
+      <p>© <span id="year"></span> Hitesh Sapariya — Professional Website and Application Developer</p>
     </div>
   </footer>
 

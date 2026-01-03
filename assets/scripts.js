@@ -34,6 +34,13 @@ if (contactForm) {
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Check honeypot
+    const honeypot = this.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) {
+      // Spam detected, silently ignore
+      return;
+    }
+    
     const formData = new FormData(this);
     const submitButton = this.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
