@@ -285,39 +285,75 @@ body{
 }
 @media (max-width:720px){
   #nav-toggle{
-    display:block;
-    z-index:100;
+    display:block !important;
+    z-index:1000;
     position:relative;
+    cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
   }
   .primary-nav{
-    display:none;
-    position:absolute;
-    right:1rem;
-    top:100%;
-    background:#fff;
-    padding:1rem;
-    border-radius:8px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    border:1px solid rgba(0,0,0,0.1);
-    min-width:200px;
-    z-index:99;
+    display:none !important;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,0.5);
+    z-index:999;
+    backdrop-filter: blur(2px);
   }
   .primary-nav.open{
-    display:block;
-    animation: slideDown 0.3s ease-out;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+  }
+  .primary-nav.open::before{
+    content:'';
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:#fff;
+    padding:2rem;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+    min-width:280px;
+    max-width:90vw;
+  }
+  .primary-nav::after{
+    content:'✕';
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:24px;
+    color:#666;
+    cursor:pointer;
+    z-index:1002;
+    -webkit-tap-highlight-color: transparent;
   }
   .primary-nav ul{
+    position:relative;
+    z-index:1001;
     flex-direction:column;
-    gap:0.5rem;
+    gap:1rem;
+    margin:0;
+    padding:0;
+    list-style:none;
   }
   .primary-nav a{
-    padding:0.75rem 1rem;
-    border-radius:6px;
-    transition: all 0.2s ease;
+    display:block;
+    padding:1rem 2rem;
+    color:#374151;
+    text-decoration:none;
+    font-weight:500;
+    border-radius:8px;
+    transition: all 0.3s ease;
+    text-align:center;
   }
   .primary-nav a:hover{
     background:var(--accent-light);
     color:var(--accent-dark);
+    transform:translateY(-2px);
   }
   .header-inner{position:relative}
   .hero{padding:2rem 0}

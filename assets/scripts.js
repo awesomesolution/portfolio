@@ -1,6 +1,7 @@
 // Mobile navigation toggle
 const navToggle = document.getElementById('nav-toggle');
 const primaryNav = document.getElementById('primary-nav');
+const body = document.body;
 
 if (navToggle && primaryNav) {
   // Handle both click and touch events for better mobile support
@@ -9,26 +10,50 @@ if (navToggle && primaryNav) {
     e.stopPropagation();
     
     const isOpen = primaryNav.classList.contains('open');
-    primaryNav.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', !isOpen);
+    
+    if (isOpen) {
+      // Close menu
+      primaryNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+      body.style.overflow = '';
+    } else {
+      // Open menu
+      primaryNav.classList.add('open');
+      navToggle.setAttribute('aria-expanded', true);
+      body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
   };
   
   navToggle.addEventListener('click', toggleMenu);
   navToggle.addEventListener('touchstart', toggleMenu, { passive: false });
   
-  // Close menu when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!navToggle.contains(e.target) && !primaryNav.contains(e.target)) {
+  // Close menu when clicking on the overlay (background)
+  primaryNav.addEventListener('click', function(e) {
+    // Check if clicked on overlay or close button area
+    const rect = primaryNav.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    
+    // If clicked on overlay or in the top-right close area
+    if (e.target === primaryNav || (clickX > rect.width - 60 && clickY < 60)) {
       primaryNav.classList.remove('open');
       navToggle.setAttribute('aria-expanded', false);
+      body.style.overflow = '';
     }
   });
   
-  // Close menu when touching outside on mobile
-  document.addEventListener('touchstart', function(e) {
-    if (!navToggle.contains(e.target) && !primaryNav.contains(e.target)) {
+  // Close menu when touching the overlay on mobile
+  primaryNav.addEventListener('touchstart', function(e) {
+    // Check if touched on overlay or close button area
+    const rect = primaryNav.getBoundingClientRect();
+    const touchX = e.touches[0].clientX - rect.left;
+    const touchY = e.touches[0].clientY - rect.top;
+    
+    // If touched on overlay or in the top-right close area
+    if (e.target === primaryNav || (touchX > rect.width - 60 && touchY < 60)) {
       primaryNav.classList.remove('open');
       navToggle.setAttribute('aria-expanded', false);
+      body.style.overflow = '';
     }
   }, { passive: true });
 }
@@ -43,9 +68,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         behavior: 'smooth'
       });
       // Close mobile nav if open
-      if (primaryNav.classList.contains('open')) {
+      if (primaryNav && primaryNav.classList.contains('open')) {
         primaryNav.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', false);
+        if (navToggle) navToggle.setAttribute('aria-expanded', false);
+        body.style.overflow = '';
       }
     }
   });
